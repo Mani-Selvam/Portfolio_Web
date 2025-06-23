@@ -1,0 +1,202 @@
+/* Dark Theme Variables */
+[data-theme="dark"] {
+  /* Colors - Dark Theme */
+  --primary-color: #818cf8;
+  --secondary-color: #a78bfa;
+  --accent-color: #fb7185;
+  --background-primary: #0f172a;
+  --background-secondary: #1e293b;
+  --surface-primary: #1e293b;
+  --surface-secondary: #334155;
+  --text-primary: #f1f5f9;
+  --text-secondary: #cbd5e1;
+  --text-muted: #64748b;
+  --border-color: rgba(203, 213, 225, 0.1);
+  --shadow-color: rgba(0, 0, 0, 0.3);
+  
+  /* Gradients - Dark Theme */
+  --gradient-primary: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  --gradient-secondary: linear-gradient(135deg, var(--secondary-color), var(--accent-color));
+  --gradient-accent: linear-gradient(135deg, var(--accent-color), var(--primary-color));
+  --gradient-glass: linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02));
+  
+  /* Glass Effect - Dark Theme */
+  --glass-bg: rgba(30, 41, 59, 0.3);
+  --glass-border: rgba(203, 213, 225, 0.1);
+  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+/* Theme Toggle Animation */
+[data-theme="dark"] .theme-toggle .sun-icon {
+  opacity: 0;
+  transform: rotate(-90deg);
+}
+
+[data-theme="dark"] .theme-toggle .moon-icon {
+  opacity: 1;
+  transform: rotate(0deg);
+}
+
+/* Smooth theme transition */
+* {
+  transition-property: background-color, border-color, color, fill, stroke, box-shadow;
+  transition-duration: 0.3s;
+  transition-timing-function: ease-out;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--surface-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--text-muted);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-color);
+}
+
+/* Firefox scrollbar */
+html {
+  scrollbar-width: thin;
+  scrollbar-color: var(--text-muted) var(--surface-secondary);
+}
+
+/* Focus styles for accessibility */
+*:focus-visible {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
+}
+
+/* Selection styles */
+::selection {
+  background: rgba(129, 140, 248, 0.3);
+  color: var(--text-primary);
+}
+
+::-moz-selection {
+  background: rgba(129, 140, 248, 0.3);
+  color: var(--text-primary);
+}
+
+/* Dark theme specific adjustments */
+[data-theme="dark"] .particles-canvas {
+  opacity: 0.6;
+}
+
+[data-theme="dark"] .gradient-overlay {
+  background: radial-gradient(ellipse at center, transparent 0%, rgba(15, 23, 42, 0.3) 100%);
+}
+
+[data-theme="dark"] .project-overlay {
+  background: rgba(129, 140, 248, 0.9);
+}
+
+[data-theme="dark"] .tech-tag {
+  background: var(--surface-secondary);
+  color: var(--text-secondary);
+}
+
+[data-theme="dark"] .form-input {
+  color: var(--text-primary);
+}
+
+[data-theme="dark"] .profile-placeholder svg circle:first-child {
+  fill: var(--gradient-primary);
+}
+
+[data-theme="dark"] .project-placeholder rect:first-child {
+  fill: var(--gradient-primary);
+}
+
+/* Theme transition effects */
+.theme-transition {
+  transition: all 0.3s ease-out;
+}
+
+/* Auto theme based on system preference */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    --primary-color: #818cf8;
+    --secondary-color: #a78bfa;
+    --accent-color: #fb7185;
+    --background-primary: #0f172a;
+    --background-secondary: #1e293b;
+    --surface-primary: #1e293b;
+    --surface-secondary: #334155;
+    --text-primary: #f1f5f9;
+    --text-secondary: #cbd5e1;
+    --text-muted: #64748b;
+    --border-color: rgba(203, 213, 225, 0.1);
+    --shadow-color: rgba(0, 0, 0, 0.3);
+    
+    --gradient-primary: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    --gradient-secondary: linear-gradient(135deg, var(--secondary-color), var(--accent-color));
+    --gradient-accent: linear-gradient(135deg, var(--accent-color), var(--primary-color));
+    --gradient-glass: linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02));
+    
+    --glass-bg: rgba(30, 41, 59, 0.3);
+    --glass-border: rgba(203, 213, 225, 0.1);
+    --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  }
+  
+  :root:not([data-theme]) .theme-toggle .sun-icon {
+    opacity: 0;
+    transform: rotate(-90deg);
+  }
+  
+  :root:not([data-theme]) .theme-toggle .moon-icon {
+    opacity: 1;
+    transform: rotate(0deg);
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  :root {
+    --glass-bg: var(--surface-primary);
+    --glass-border: var(--border-color);
+    --glass-backdrop: none;
+  }
+  
+  .glass-effect {
+    background: var(--surface-primary);
+    backdrop-filter: none;
+    border: 2px solid var(--border-color);
+  }
+  
+  .glass-button {
+    background: var(--surface-primary);
+    backdrop-filter: none;
+    border: 2px solid var(--primary-color);
+  }
+}
+
+/* Reduced transparency for better readability */
+@media (prefers-reduced-transparency: reduce) {
+  :root {
+    --glass-bg: var(--surface-primary);
+    --glass-backdrop: none;
+  }
+  
+  .glass-effect {
+    background: var(--surface-primary);
+    backdrop-filter: none;
+  }
+  
+  .glass-button {
+    background: var(--surface-primary);
+    backdrop-filter: none;
+  }
+  
+  .nav {
+    background: var(--surface-primary);
+    backdrop-filter: none;
+  }
+}
