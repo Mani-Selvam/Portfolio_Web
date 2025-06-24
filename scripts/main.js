@@ -1,5 +1,5 @@
 // Main JavaScript file for portfolio website
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     // Initialize all components
     initializeLoading();
     initializeNavigation();
@@ -20,15 +20,15 @@ function initializeLoading() {
     const loadingScreen = document.getElementById('loading-screen');
     const minLoadingTime = 1500; // Minimum loading time for better UX
     const startTime = Date.now();
-    
-    window.addEventListener('load', function() {
+
+    window.addEventListener('load', function () {
         const elapsedTime = Date.now() - startTime;
         const remainingTime = Math.max(0, minLoadingTime - elapsedTime);
-        
+
         setTimeout(() => {
             loadingScreen.classList.add('hidden');
             document.body.style.overflow = 'visible';
-            
+
             // Trigger entrance animations
             triggerEntranceAnimations();
         }, remainingTime);
@@ -40,20 +40,20 @@ function initializeNavigation() {
     const nav = document.querySelector('.nav');
     const navLinks = document.querySelectorAll('.nav-link');
     const sections = document.querySelectorAll('section[id]');
-    
+
     // Scroll effect on navigation
     let lastScrollY = window.scrollY;
-    
+
     window.addEventListener('scroll', () => {
         const currentScrollY = window.scrollY;
-        
+
         // Add scrolled class for styling
         if (currentScrollY > 100) {
             nav.classList.add('scrolled');
         } else {
             nav.classList.remove('scrolled');
         }
-        
+
         // Update active navigation link
         let current = '';
         sections.forEach(section => {
@@ -63,24 +63,24 @@ function initializeNavigation() {
                 current = section.getAttribute('id');
             }
         });
-        
+
         navLinks.forEach(link => {
             link.classList.remove('active');
             if (link.getAttribute('href').substring(1) === current) {
                 link.classList.add('active');
             }
         });
-        
+
         lastScrollY = currentScrollY;
     });
-    
+
     // Smooth scroll for navigation links
     navLinks.forEach(link => {
-        link.addEventListener('click', function(e) {
+        link.addEventListener('click', function (e) {
             e.preventDefault();
             const targetId = this.getAttribute('href').substring(1);
             const targetSection = document.getElementById(targetId);
-            
+
             if (targetSection) {
                 const offsetTop = targetSection.offsetTop - 80;
                 window.scrollTo({
@@ -100,43 +100,43 @@ function initializeCustomCursor() {
     let mouseY = 0;
     let cursorX = 0;
     let cursorY = 0;
-    
+
     // Only initialize on non-touch devices
     if (window.matchMedia('(pointer: fine)').matches) {
         document.addEventListener('mousemove', (e) => {
             mouseX = e.clientX;
             mouseY = e.clientY;
         });
-        
+
         // Smooth cursor movement
         function animateCursor() {
             const dx = mouseX - cursorX;
             const dy = mouseY - cursorY;
-            
+
             cursorX += dx * 0.1;
             cursorY += dy * 0.1;
-            
+
             cursor.style.transform = `translate(${cursorX - 10}px, ${cursorY - 10}px)`;
             requestAnimationFrame(animateCursor);
         }
         animateCursor();
-        
+
         // Cursor hover effects
         const interactiveElements = document.querySelectorAll('a, button, .project-card, .skill-item, .contact-item');
-        
+
         interactiveElements.forEach(element => {
             element.addEventListener('mouseenter', () => {
                 cursor.classList.add('hover');
             });
-            
+
             element.addEventListener('mouseleave', () => {
                 cursor.classList.remove('hover');
             });
-            
+
             element.addEventListener('mousedown', () => {
                 cursor.classList.add('click');
             });
-            
+
             element.addEventListener('mouseup', () => {
                 cursor.classList.remove('click');
             });
@@ -149,12 +149,12 @@ function initializeCustomCursor() {
 // Scroll progress indicator
 function initializeScrollProgress() {
     const scrollProgress = document.getElementById('scroll-progress');
-    
+
     window.addEventListener('scroll', () => {
         const scrollTop = window.pageYOffset;
         const documentHeight = document.documentElement.scrollHeight - window.innerHeight;
         const scrollPercent = (scrollTop / documentHeight) * 100;
-        
+
         scrollProgress.style.width = scrollPercent + '%';
     });
 }
@@ -165,19 +165,19 @@ function initializeHeroAnimation() {
     const ctx = canvas.getContext('2d');
     const particles = [];
     const particleCount = 50;
-    
+
     // Resize canvas
     function resizeCanvas() {
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
     }
-    
+
     resizeCanvas();
     window.addEventListener('resize', resizeCanvas);
-    
+
     // Particle class
     class Particle {
-        constructor() {
+        constructor () {
             this.x = Math.random() * canvas.width;
             this.y = Math.random() * canvas.height;
             this.size = Math.random() * 3 + 1;
@@ -185,17 +185,17 @@ function initializeHeroAnimation() {
             this.speedY = Math.random() * 2 - 1;
             this.opacity = Math.random() * 0.5 + 0.3;
         }
-        
+
         update() {
             this.x += this.speedX;
             this.y += this.speedY;
-            
+
             if (this.x > canvas.width) this.x = 0;
             if (this.x < 0) this.x = canvas.width;
             if (this.y > canvas.height) this.y = 0;
             if (this.y < 0) this.y = canvas.height;
         }
-        
+
         draw() {
             ctx.fillStyle = `rgba(102, 126, 234, ${this.opacity})`;
             ctx.beginPath();
@@ -203,36 +203,36 @@ function initializeHeroAnimation() {
             ctx.fill();
         }
     }
-    
+
     // Initialize particles
     for (let i = 0; i < particleCount; i++) {
         particles.push(new Particle());
     }
-    
+
     // Animation loop
     function animateParticles() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
-        
+
         particles.forEach(particle => {
             particle.update();
             particle.draw();
         });
-        
+
         requestAnimationFrame(animateParticles);
     }
-    
+
     animateParticles();
-    
+
     // Hero button functionality
     const primaryCTA = document.querySelector('.primary-cta');
     const secondaryCTA = document.querySelector('.secondary-cta');
-    
+
     primaryCTA.addEventListener('click', () => {
         document.getElementById('projects').scrollIntoView({
             behavior: 'smooth'
         });
     });
-    
+
     secondaryCTA.addEventListener('click', () => {
         document.getElementById('contact').scrollIntoView({
             behavior: 'smooth'
@@ -246,24 +246,24 @@ function initializeScrollAnimations() {
         threshold: 0.1,
         rootMargin: '0px 0px -50px 0px'
     };
-    
+
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('revealed');
-                
+
                 // Trigger specific animations based on element
                 if (entry.target.classList.contains('stat-number')) {
                     animateCounter(entry.target);
                 }
-                
+
                 if (entry.target.classList.contains('skill-progress')) {
                     animateSkillBar(entry.target);
                 }
             }
         });
     }, observerOptions);
-    
+
     // Observe all reveal elements
     const revealElements = document.querySelectorAll('.reveal-element');
     revealElements.forEach(element => {
@@ -273,278 +273,60 @@ function initializeScrollAnimations() {
 
 // Counter animation for statistics
 function initializeCounterAnimation() {
-    window.animateCounter = function(element) {
+    window.animateCounter = function (element) {
         const target = parseInt(element.getAttribute('data-target'));
         const duration = 2000;
         const startTime = performance.now();
-        
+
         function updateCounter(currentTime) {
             const elapsedTime = currentTime - startTime;
             const progress = Math.min(elapsedTime / duration, 1);
-            
+
             // Easing function
             const easeOutCubic = 1 - Math.pow(1 - progress, 3);
             const currentValue = Math.floor(target * easeOutCubic);
-            
+
             element.textContent = currentValue;
-            
+
             if (progress < 1) {
                 requestAnimationFrame(updateCounter);
             } else {
                 element.textContent = target;
             }
         }
-        
+
         requestAnimationFrame(updateCounter);
     };
 }
 
 // Skills section animations
 function initializeSkillsAnimation() {
-    window.animateSkillBar = function(progressBar) {
+    window.animateSkillBar = function (progressBar) {
         const targetWidth = progressBar.getAttribute('data-width');
         progressBar.style.width = targetWidth + '%';
     };
 }
 
-// Projects modal functionality
-function initializeProjectsModal() {
-    const modal = document.getElementById('project-modal');
-    const modalClose = modal.querySelector('.modal-close');
-    const modalOverlay = modal.querySelector('.modal-overlay');
-    const projectCards = document.querySelectorAll('.project-card');
-    
-    const projectData = {
-        1: {
-            title: 'E-Commerce Platform',
-            description: 'A comprehensive e-commerce solution built with modern web technologies. Features include real-time inventory management, secure payment processing, user authentication, shopping cart functionality, and an admin dashboard for managing products and orders.',
-            tech: ['React', 'Node.js', 'MongoDB', 'Stripe API', 'JWT Authentication'],
-            demoUrl: '#',
-            codeUrl: '#'
-        },
-        2: {
-            title: 'Task Management App',
-            description: 'A collaborative task management application designed for teams. Features real-time updates using WebSocket connections, drag-and-drop task organization, team collaboration tools, deadline tracking, and progress visualization.',
-            tech: ['Vue.js', 'Express.js', 'Socket.io', 'PostgreSQL', 'Redis'],
-            demoUrl: '#',
-            codeUrl: '#'
-        },
-        3: {
-            title: 'Analytics Dashboard',
-            description: 'An interactive analytics dashboard for data visualization and reporting. Includes customizable charts, real-time data processing, export functionality, user role management, and comprehensive reporting tools for business intelligence.',
-            tech: ['Angular', 'D3.js', 'Python', 'FastAPI', 'Chart.js'],
-            demoUrl: '#',
-            codeUrl: '#'
-        }
-    };
-    
-    // Open modal
-    projectCards.forEach(card => {
-        card.addEventListener('click', () => {
-            const projectId = card.getAttribute('data-project');
-            const project = projectData[projectId];
-            
-            if (project) {
-                // Populate modal content
-                modal.querySelector('.modal-title').textContent = project.title;
-                modal.querySelector('.modal-description').textContent = project.description;
-                
-                const techContainer = modal.querySelector('.modal-tech');
-                techContainer.innerHTML = '';
-                project.tech.forEach(tech => {
-                    const techTag = document.createElement('span');
-                    techTag.className = 'tech-tag';
-                    techTag.textContent = tech;
-                    techContainer.appendChild(techTag);
-                });
-                
-                // Update links
-                const demoLink = modal.querySelector('.modal-link:first-child');
-                const codeLink = modal.querySelector('.modal-link:last-child');
-                demoLink.href = project.demoUrl;
-                codeLink.href = project.codeUrl;
-                
-                // Show modal
-                modal.classList.add('show');
-                document.body.style.overflow = 'hidden';
-            }
-        });
-    });
-    
-    // Close modal
-    function closeModal() {
-        modal.classList.remove('show');
-        document.body.style.overflow = 'visible';
-    }
-    
-    modalClose.addEventListener('click', closeModal);
-    modalOverlay.addEventListener('click', closeModal);
-    
-    // Close on escape key
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && modal.classList.contains('show')) {
-            closeModal();
-        }
-    });
-}
 
-// Contact form functionality
-function initializeContactForm() {
-    const form = document.getElementById('contact-form');
-    const formMessage = document.getElementById('form-message');
-    const submitBtn = form.querySelector('.submit-btn');
-    const btnText = submitBtn.querySelector('.btn-text');
-    
-    // Form input animations
-    const formInputs = form.querySelectorAll('.form-input');
-    formInputs.forEach(input => {
-        input.addEventListener('focus', () => {
-            input.parentElement.classList.add('focused');
-        });
-        
-        input.addEventListener('blur', () => {
-            if (!input.value) {
-                input.parentElement.classList.remove('focused');
-            }
-        });
-        
-        // Check if input has value on load
-        if (input.value) {
-            input.parentElement.classList.add('focused');
-        }
-    });
-    
-    // Form validation
-    function validateForm(formData) {
-        const errors = [];
-        
-        if (!formData.get('name').trim()) {
-            errors.push('Name is required');
-        }
-        
-        const email = formData.get('email').trim();
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!email) {
-            errors.push('Email is required');
-        } else if (!emailRegex.test(email)) {
-            errors.push('Please enter a valid email address');
-        }
-        
-        if (!formData.get('subject').trim()) {
-            errors.push('Subject is required');
-        }
-        
-        if (!formData.get('message').trim()) {
-            errors.push('Message is required');
-        }
-        
-        return errors;
-    }
-    
-    // Show form message
-    function showFormMessage(message, type) {
-        formMessage.textContent = message;
-        formMessage.className = `form-message ${type} show`;
-        
-        setTimeout(() => {
-            formMessage.classList.remove('show');
-        }, 5000);
-    }
-    
-    // Form submission
-    form.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        
-        const formData = new FormData(form);
-        const errors = validateForm(formData);
-        
-        if (errors.length > 0) {
-            showFormMessage(errors.join(', '), 'error');
-            return;
-        }
-        
-        // Show loading state
-        submitBtn.classList.add('loading');
-        submitBtn.disabled = true;
-        
-        // Simulate form submission (replace with actual API call)
-        try {
-            await new Promise(resolve => setTimeout(resolve, 2000));
-            
-            // Success state
-            submitBtn.classList.remove('loading');
-            submitBtn.classList.add('success');
-            
-            showFormMessage('Message sent successfully! I\'ll get back to you soon.', 'success');
-            form.reset();
-            
-            // Reset form inputs focus state
-            formInputs.forEach(input => {
-                input.parentElement.classList.remove('focused');
-            });
-            
-            setTimeout(() => {
-                submitBtn.classList.remove('success');
-                submitBtn.disabled = false;
-            }, 3000);
-            
-        } catch (error) {
-            // Error state
-            submitBtn.classList.remove('loading');
-            submitBtn.disabled = false;
-            showFormMessage('Failed to send message. Please try again.', 'error');
-        }
-    });
-}
-
-// Parallax effects
-function initializeParallaxEffects() {
-    const parallaxElements = document.querySelectorAll('.parallax');
-    
-    if (parallaxElements.length === 0) return;
-    
-    function updateParallax() {
-        const scrollY = window.pageYOffset;
-        
-        parallaxElements.forEach(element => {
-            const speed = element.dataset.speed || 0.5;
-            const yPos = -(scrollY * speed);
-            element.style.transform = `translateY(${yPos}px)`;
-        });
-    }
-    
-    // Throttle scroll events for better performance
-    let ticking = false;
-    
-    window.addEventListener('scroll', () => {
-        if (!ticking) {
-            requestAnimationFrame(() => {
-                updateParallax();
-                ticking = false;
-            });
-            ticking = true;
-        }
-    });
-}
 
 // Smooth scrolling enhancements
 function initializeSmoothScrolling() {
     // Add smooth scrolling to all anchor links
     const anchorLinks = document.querySelectorAll('a[href^="#"]');
-    
+
     anchorLinks.forEach(link => {
-        link.addEventListener('click', function(e) {
+        link.addEventListener('click', function (e) {
             const href = this.getAttribute('href');
-            
+
             // Skip if it's just '#'
             if (href === '#') return;
-            
+
             e.preventDefault();
-            
+
             const targetElement = document.querySelector(href);
             if (targetElement) {
                 const offsetTop = targetElement.offsetTop - 80;
-                
+
                 window.scrollTo({
                     top: offsetTop,
                     behavior: 'smooth'
@@ -564,7 +346,7 @@ function triggerEntranceAnimations() {
             element.style.transform = 'translateY(0)';
         }, index * 200);
     });
-    
+
     // Navigation fade in
     const nav = document.querySelector('.nav');
     setTimeout(() => {
@@ -588,7 +370,7 @@ function debounce(func, wait) {
 
 function throttle(func, limit) {
     let inThrottle;
-    return function() {
+    return function () {
         const args = arguments;
         const context = this;
         if (!inThrottle) {
@@ -614,17 +396,17 @@ function initializePerformanceOptimizations() {
                 }
             });
         });
-        
+
         images.forEach(img => imageObserver.observe(img));
     }
-    
+
     // Preload critical resources
     const criticalResources = [
         'styles/main.css',
         'styles/themes.css',
         'styles/animations.css'
     ];
-    
+
     criticalResources.forEach(resource => {
         const link = document.createElement('link');
         link.rel = 'preload';
@@ -647,3 +429,113 @@ window.addEventListener('unhandledrejection', (e) => {
 
 // Initialize performance optimizations
 initializePerformanceOptimizations();
+
+
+
+
+
+
+
+
+
+function initializeContactForm() {
+    const form = document.getElementById('contact-form');
+    const formMessage = document.getElementById('form-message');
+    const submitBtn = form.querySelector('.submit-btn');
+    const btnText = submitBtn.querySelector('.btn-text');
+
+    const formInputs = form.querySelectorAll('.form-input');
+    formInputs.forEach(input => {
+        input.addEventListener('focus', () => {
+            input.parentElement.classList.add('focused');
+        });
+        input.addEventListener('blur', () => {
+            if (!input.value) {
+                input.parentElement.classList.remove('focused');
+            }
+        });
+        if (input.value) {
+            input.parentElement.classList.add('focused');
+        }
+    });
+
+    function validateForm(formData) {
+        const errors = [];
+
+        if (!formData.get('name').trim()) {
+            errors.push('Name is required');
+        }
+
+        const email = formData.get('email').trim();
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!email) {
+            errors.push('Email is required');
+        } else if (!emailRegex.test(email)) {
+            errors.push('Please enter a valid email address');
+        }
+
+        if (!formData.get('subject').trim()) {
+            errors.push('Subject is required');
+        }
+
+        if (!formData.get('message').trim()) {
+            errors.push('Message is required');
+        }
+
+        return errors;
+    }
+
+    function showFormMessage(message, type) {
+        formMessage.textContent = message;
+        formMessage.className = `form-message ${type} show`;
+        setTimeout(() => {
+            formMessage.classList.remove('show');
+        }, 5000);
+    }
+
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const formData = new FormData(form);
+        const errors = validateForm(formData);
+
+        if (errors.length > 0) {
+            showFormMessage(errors.join(', '), 'error');
+            return;
+        }
+
+        submitBtn.classList.add('loading');
+        submitBtn.disabled = true;
+
+        try {
+            emailjs.init("BBBpJAyMTdhk8Ta6l"); // Only once
+
+            await emailjs.sendForm(
+                "service_0dq1qnk",
+                "template_k64h1pe",
+                form
+            );
+
+            submitBtn.classList.remove('loading');
+            submitBtn.classList.add('success');
+            showFormMessage('Message sent successfully! I\'ll get back to you soon.', 'success');
+            form.reset();
+
+            formInputs.forEach(input => {
+                input.parentElement.classList.remove('focused');
+            });
+
+            setTimeout(() => {
+                submitBtn.classList.remove('success');
+                submitBtn.disabled = false;
+            }, 3000);
+        } catch (error) {
+            console.error(error);
+            submitBtn.classList.remove('loading');
+            submitBtn.disabled = false;
+            showFormMessage('Failed to send message. Please try again.', 'error');
+        }
+    });
+}
+
+initializeContactForm();

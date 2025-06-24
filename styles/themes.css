@@ -13,13 +13,13 @@
   --text-muted: #64748b;
   --border-color: rgba(203, 213, 225, 0.1);
   --shadow-color: rgba(0, 0, 0, 0.3);
-  
+
   /* Gradients - Dark Theme */
   --gradient-primary: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
   --gradient-secondary: linear-gradient(135deg, var(--secondary-color), var(--accent-color));
   --gradient-accent: linear-gradient(135deg, var(--accent-color), var(--primary-color));
   --gradient-glass: linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02));
-  
+
   /* Glass Effect - Dark Theme */
   --glass-bg: rgba(30, 41, 59, 0.3);
   --glass-border: rgba(203, 213, 225, 0.1);
@@ -95,7 +95,7 @@ html {
 }
 
 [data-theme="dark"] .project-overlay {
-  background: rgba(129, 140, 248, 0.9);
+  background: rgba(51, 54, 75, 0.9);
 }
 
 [data-theme="dark"] .tech-tag {
@@ -135,22 +135,22 @@ html {
     --text-muted: #64748b;
     --border-color: rgba(203, 213, 225, 0.1);
     --shadow-color: rgba(0, 0, 0, 0.3);
-    
+
     --gradient-primary: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
     --gradient-secondary: linear-gradient(135deg, var(--secondary-color), var(--accent-color));
     --gradient-accent: linear-gradient(135deg, var(--accent-color), var(--primary-color));
     --gradient-glass: linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02));
-    
+
     --glass-bg: rgba(30, 41, 59, 0.3);
     --glass-border: rgba(203, 213, 225, 0.1);
     --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
   }
-  
+
   :root:not([data-theme]) .theme-toggle .sun-icon {
     opacity: 0;
     transform: rotate(-90deg);
   }
-  
+
   :root:not([data-theme]) .theme-toggle .moon-icon {
     opacity: 1;
     transform: rotate(0deg);
@@ -164,13 +164,13 @@ html {
     --glass-border: var(--border-color);
     --glass-backdrop: none;
   }
-  
+
   .glass-effect {
     background: var(--surface-primary);
     backdrop-filter: none;
     border: 2px solid var(--border-color);
   }
-  
+
   .glass-button {
     background: var(--surface-primary);
     backdrop-filter: none;
@@ -184,17 +184,17 @@ html {
     --glass-bg: var(--surface-primary);
     --glass-backdrop: none;
   }
-  
+
   .glass-effect {
     background: var(--surface-primary);
     backdrop-filter: none;
   }
-  
+
   .glass-button {
     background: var(--surface-primary);
     backdrop-filter: none;
   }
-  
+
   .nav {
     background: var(--surface-primary);
     backdrop-filter: none;
